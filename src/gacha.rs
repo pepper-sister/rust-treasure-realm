@@ -1,4 +1,5 @@
 use crate::data::state::Player;
+use crate::data::rewards::RewardType;
 use crate::functions::draw_command::draw_command;
 use crate::functions::draws::draws;
 use crate::functions::print_draw_result::print_draw_result;
@@ -11,10 +12,6 @@ pub fn gacha(player: &mut Player) {
       break;
     }
 
-    if player.prestige_obtained {
-        break;
-    }
-
     match draw_command(player.tft_coin) {
       Ok(Some(count)) => {      
         let rewards_before_draw = player.rewards.clone(); 
@@ -23,7 +20,13 @@ pub fn gacha(player: &mut Player) {
         print_draw_result(&player, count, &rewards_before_draw);
 
         if player.prestige_obtained {
-            break;
+          break;
+        }
+
+        if player.myth_medal >= 25 {
+          player.myth_medal -= 25;
+          *player.rewards.entry(RewardType::Prestige).or_insert(0) += 1;
+          break;
         }
       }
       Ok(None) => {
