@@ -27,10 +27,10 @@ pub fn final_result(player: &mut Player) {
 
   for reward in order.iter() {
     if let Some(count) = final_rewards.get(reward) {
-        if *count > 0 {
-            let (name, _) = reward_info(reward);
-            println!("{} - {}개", name, count);
-        }
+      if *count > 0 {
+        let (name, _) = reward_info(reward);
+        println!("{} - {}개", name, count);
+      }
     }
   }
 
