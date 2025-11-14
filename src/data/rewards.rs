@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 pub enum RewardType {
   Prestige,
   Myth,
